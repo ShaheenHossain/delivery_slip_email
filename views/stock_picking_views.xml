@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Add external company field -->
+    <record id="view_picking_form_inherit_ext" model="ir.ui.view">
+        <field name="name">stock.picking.form.inherit.external.company</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="external_company_id"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Add Send Delivery Slip button -->
+    <record id="view_picking_form_inherit_email" model="ir.ui.view">
+        <field name="name">stock.picking.form.inherit.email</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="action_open_delivery_slip_email_wizard"
+                        string="Send Delivery Slip"
+                        type="object"
+                        class="btn-primary"
+                        groups="stock.group_stock_user"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
