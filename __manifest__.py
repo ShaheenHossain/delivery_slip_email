@@ -8,7 +8,7 @@
     'author': 'Md. Shaheen Hossain',
     'website': 'https://eagle-erp.com',
     'category': 'Inventory/Delivery',
-    'depends': ['stock', 'sale', 'mail'],
+    'depends': ['stock', 'sale', 'mail', 'l10n_din5008_stock'],
     'data': [
         'security/ir.model.access.csv',
         'views/stock_picking_views.xml',
