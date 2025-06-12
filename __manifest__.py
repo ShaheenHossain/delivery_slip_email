@@ -14,6 +14,21 @@
         'views/stock_picking_views.xml',
         'wizard/delivery_slip_email_wizard_views.xml',
     ],
+    # 'assets': {
+    #     'web.assets_frontend': [
+    #         'delivery_slip_email/static/src/css/report.css',
+    #     ],
+    #     # Optional for backend styling:
+    #     'web.assets_backend': [
+    #         'delivery_slip_email/static/src/css/report.css',
+    #     ],
+    #     # Optional for PDF or QWeb reports:
+    #     'web.report_assets_common': [
+    #         'delivery_slip_email/static/src/css/report.css',
+    #     ],
+    # },
+
+
     'installable': True,
     'application': False,
     'license': 'LGPL-3',

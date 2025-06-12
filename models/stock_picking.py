@@ -9,6 +9,13 @@ _logger = logging.getLogger(__name__)
 class StockPicking(models.Model):
     _inherit = 'stock.picking'
 
+    scheduled_date = fields.Datetime(string='Scheduled Date')
+    commitment_date = fields.Date(string='Commitment Date')
+    client_order_ref = fields.Char(string='Client Order Reference')
+    commitment_delivery_date = fields.Date(string='Commitment Delivery Date')
+    measurement_date = fields.Date(string='Measurement Date')
+
+
     external_company_id = fields.Many2one(
         'res.partner',
         string='External Company',

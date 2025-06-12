@@ -1,0 +1,11 @@
+.col-3 {
+    width: 23%;
+    display: inline-block;
+    vertical-align: top;
+    padding-right: 10px;
+}
+.row.mb16 {
+    border: 1px solid #000;
+    padding: 10px;
+    margin-bottom: 16px;
+}
