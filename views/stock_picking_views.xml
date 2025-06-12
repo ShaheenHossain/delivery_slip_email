@@ -28,7 +28,6 @@
         </field>
     </record>
 
-<!--
 
     <template id="delivery_document_din5008_inherit" inherit_id="l10n_din5008_stock.external_layout_din5008_deliveryslip">
         <xpath expr="//div[contains(@class, 'information_block')]/table" position="after">
@@ -62,35 +61,5 @@
             </table>
         </xpath>
     </template>
--->
-
-
-<!--
-
-
-    <template id="custom_report_delivery_document" inherit_id="stock.report_delivery_document">
-        &lt;!&ndash;    <xpath expr="//div[@name='div_sched_date']" position="after">&ndash;&gt;
-&lt;!&ndash;        <xpath expr="//div[@name='div_incoming_address']" position="before">&ndash;&gt;
-        <xpath expr="//div[@name='outgoing_delivery_address']" position="before">
-&lt;!&ndash;        <xpath expr="//div[hasclass('page')]" position="before">&ndash;&gt;
-
-            <div class="mb-3" style="float: right; text-align: right;">
-                <div t-if="o.origin">
-                    <strong>Delivery Note No.:</strong> <span t-esc="o.origin"/>
-                </div>
-                <div>
-                    <strong>Date of Issue:</strong> <span t-field="o.scheduled_date" t-options='{"widget": "date"}'/>
-                </div>
-                <div t-if="o.sale_id and o.sale_id.commitment_delivery_date">
-                    <strong>Delivery Date:</strong> <span t-field="o.sale_id.commitment_delivery_date" t-options='{"widget": "date"}'/>
-                </div>
-                <div t-if="o.sale_id and o.sale_id.measurement_date">
-                    <strong>Measurement Date:</strong> <span t-field="o.sale_id.measurement_date" t-options='{"widget": "date"}'/>
-                </div>
-            </div>
-        </xpath>
-    </template>
--->
-
 
 </odoo>
