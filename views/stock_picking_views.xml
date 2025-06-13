@@ -36,13 +36,13 @@
                 <td>Lieferschein-Nr.:</td>
                 <td t-esc="o.origin" style="padding-right: 27px;"/>
             </tr>
-            <tr t-if="getattr(o, 'scheduled_date', False)">
+            <tr t-if="o.scheduled_date">
                 <td>Ausstellungsdatum:</td>
                 <td>
                     <span t-esc="o.scheduled_date.strftime('%d.%m.%Y')" style="padding-right: 27px;"/>
                 </td>
             </tr>
-            <t t-if="getattr(o, 'commitment_delivery_date', False) or (getattr(o, 'sale_id', False) and o.sale_id.commitment_delivery_date)">
+            <t t-if="o.commitment_delivery_date or (o.sale_id and o.sale_id.commitment_delivery_date)">
                 <tr>
                     <td>Lieferdatum:</td>
                     <td>
@@ -50,7 +50,7 @@
                     </td>
                 </tr>
             </t>
-            <t t-if="getattr(o, 'measurement_date', False) or (getattr(o, 'sale_id', False) and o.sale_id.measurement_date)">
+            <t t-if="o.measurement_date or (o.sale_id and o.sale_id.measurement_date)">
                 <tr>
                     <td>Aufmaß Datum:</td>
                     <td>
@@ -61,5 +61,6 @@
         </table>
     </xpath>
 </template>
+
 
 </odoo>
