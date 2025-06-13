@@ -28,41 +28,38 @@
         </field>
     </record>
 
-    <template id="delivery_document_din5008_inherit" inherit_id="l10n_din5008_stock.external_layout_din5008_deliveryslip">
-        <xpath expr="//div[contains(@class, 'information_block')]/table" position="after">
-            <table style="width: 100%;">
-                <tr t-if="o.origin">
-                    <td>Lieferschein-Nr.:</td>
-                    <td t-esc="o.origin" style="padding-right: 27px;"/>
-                </tr>
+
+<template id="delivery_document_din5008_inherit" inherit_id="l10n_din5008_stock.external_layout_din5008_deliveryslip">
+    <xpath expr="//div[contains(@class, 'information_block')]/table" position="after">
+        <table style="width: 100%;">
+            <tr t-if="o.origin">
+                <td>Lieferschein-Nr.:</td>
+                <td t-esc="o.origin" style="padding-right: 27px;"/>
+            </tr>
+            <tr t-if="getattr(o, 'scheduled_date', False)">
+                <td>Ausstellungsdatum:</td>
+                <td>
+                    <span t-esc="o.scheduled_date.strftime('%d.%m.%Y')" style="padding-right: 27px;"/>
+                </td>
+            </tr>
+            <t t-if="getattr(o, 'commitment_delivery_date', False) or (getattr(o, 'sale_id', False) and o.sale_id.commitment_delivery_date)">
                 <tr>
-                    <td>Ausstellungsdatum:</td>
+                    <td>Lieferdatum:</td>
                     <td>
-                        <span t-field="o.scheduled_date" t-options='{"widget": "date"}' style="padding-right: 27px;"/>
+                        <span t-esc="(o.commitment_delivery_date or o.sale_id.commitment_delivery_date).strftime('%d.%m.%Y')" style="padding-right: 27px;"/>
                     </td>
                 </tr>
-                <t t-if="o.commitment_delivery_date or (getattr(o, 'sale_id', False) and o.sale_id.commitment_delivery_date)">
-                    <tr>
-                        <td>Lieferdatum:</td>
-                        <td>
-                            <span t-field="o.commitment_delivery_date or o.sale_id.commitment_delivery_date"
-                                  t-options='{"widget": "date"}'
-                                  style="padding-right: 27px;"/>
-                        </td>
-                    </tr>
-                </t>
-                <t t-if="o.measurement_date or (getattr(o, 'sale_id', False) and o.sale_id.measurement_date)">
-                    <tr>
-                        <td>Aufmaß Datum:</td>
-                        <td>
-                            <span t-field="o.measurement_date or o.sale_id.measurement_date"
-                                  t-options='{"widget": "date"}'
-                                  style="padding-right: 27px;"/>
-                        </td>
-                    </tr>
-                </t>
-            </table>
-        </xpath>
-    </template>
+            </t>
+            <t t-if="getattr(o, 'measurement_date', False) or (getattr(o, 'sale_id', False) and o.sale_id.measurement_date)">
+                <tr>
+                    <td>Aufmaß Datum:</td>
+                    <td>
+                        <span t-esc="(o.measurement_date or o.sale_id.measurement_date).strftime('%d.%m.%Y')" style="padding-right: 27px;"/>
+                    </td>
+                </tr>
+            </t>
+        </table>
+    </xpath>
+</template>
 
 </odoo>
