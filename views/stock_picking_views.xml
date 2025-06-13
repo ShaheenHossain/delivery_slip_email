@@ -28,8 +28,6 @@
         </field>
     </record>
 
-<!--
-
     <template id="delivery_document_din5008_inherit" inherit_id="l10n_din5008_stock.external_layout_din5008_deliveryslip">
         <xpath expr="//div[contains(@class, 'information_block')]/table" position="after">
             <table style="width: 100%;">
@@ -43,25 +41,28 @@
                         <span t-field="o.scheduled_date" t-options='{"widget": "date"}' style="padding-right: 27px;"/>
                     </td>
                 </tr>
-                <tr t-if="o.commitment_delivery_date or (o.sale_id and o.sale_id.commitment_delivery_date)">
-                    <td>Lieferdatum:</td>
-                    <td>
-                        <span t-field="o.commitment_delivery_date or o.sale_id.commitment_delivery_date"
-                              t-options='{"widget": "date"}'
-                              style="padding-right: 27px;"/>
-                    </td>
-                </tr>
-                <tr t-if="o.measurement_date or (o.sale_id and o.sale_id.measurement_date)">
-                    <td>Aufmaß Datum:</td>
-                    <td>
-                        <span t-field="o.measurement_date or o.sale_id.measurement_date"
-                              t-options='{"widget": "date"}'
-                              style="padding-right: 27px;"/>
-                    </td>
-                </tr>
+                <t t-if="o.commitment_delivery_date or (getattr(o, 'sale_id', False) and o.sale_id.commitment_delivery_date)">
+                    <tr>
+                        <td>Lieferdatum:</td>
+                        <td>
+                            <span t-field="o.commitment_delivery_date or o.sale_id.commitment_delivery_date"
+                                  t-options='{"widget": "date"}'
+                                  style="padding-right: 27px;"/>
+                        </td>
+                    </tr>
+                </t>
+                <t t-if="o.measurement_date or (getattr(o, 'sale_id', False) and o.sale_id.measurement_date)">
+                    <tr>
+                        <td>Aufmaß Datum:</td>
+                        <td>
+                            <span t-field="o.measurement_date or o.sale_id.measurement_date"
+                                  t-options='{"widget": "date"}'
+                                  style="padding-right: 27px;"/>
+                        </td>
+                    </tr>
+                </t>
             </table>
         </xpath>
     </template>
--->
 
 </odoo>
