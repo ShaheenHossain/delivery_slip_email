@@ -76,3 +76,9 @@ class StockPicking(models.Model):
                 'default_recipient_emails': ','.join(recipients),
             }
         }
+
+
+class AccountMove(models.Model):
+    _inherit = 'account.move'
+
+    origin = fields.Char(string='Source Document')
