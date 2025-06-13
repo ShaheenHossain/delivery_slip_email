@@ -28,6 +28,7 @@
         </field>
     </record>
 
+<!--
 
     <template id="delivery_document_din5008_inherit" inherit_id="l10n_din5008_stock.external_layout_din5008_deliveryslip">
         <xpath expr="//div[contains(@class, 'information_block')]/table" position="after">
@@ -61,5 +62,6 @@
             </table>
         </xpath>
     </template>
+-->
 
 </odoo>
