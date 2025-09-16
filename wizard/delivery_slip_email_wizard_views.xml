@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="delivery_slip_email_wizard_form" model="ir.ui.view">
         <field name="name">delivery.slip.email.wizard.form</field>
@@ -11,13 +10,19 @@
                         <field name="recipient_emails" readonly="1"/>
                     </group>
 
+                    <!-- Existing attachments -->
                     <group>
-                        <field name="attachment_ids" readonly="1">
-                            <tree>
+                        <field name="attachment_ids">
+                            <tree editable="bottom">
                                 <field name="name"/>
                                 <field name="mimetype"/>
                             </tree>
                         </field>
+                    </group>
+
+                    <!-- Upload files from PC -->
+                    <group>
+                        <field name="upload_files" widget="many2many_binary"/>
                     </group>
 
                     <group>

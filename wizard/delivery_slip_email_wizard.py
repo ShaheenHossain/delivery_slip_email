@@ -10,15 +10,31 @@ class DeliverySlipEmailWizard(models.TransientModel):
     subject = fields.Char(string='Subject', required=True)
     body = fields.Html(string='Email Body')
     recipient_emails = fields.Char(string='Recipients', readonly=True)
+
+    # Existing attachments
     attachment_ids = fields.Many2many(
         'ir.attachment',
         string='Attachments'
+    )
+
+    # Uploaded files from PC (new relation table)
+    upload_files = fields.Many2many(
+        'ir.attachment',
+        'delivery_slip_upload_files_rel',  # Unique relation table
+        'wizard_id', 'attachment_id',
+        string="Upload PDF Files"
     )
 
     def action_send_email(self):
         self.ensure_one()
 
         try:
+            # Combine existing attachments + uploaded files
+            all_attachment_ids = self.attachment_ids.ids + self.upload_files.ids
+
+            if not self.recipient_emails:
+                raise UserError("Delivery address has no email.")
+
             mail_values = {
                 'subject': self.subject,
                 'body_html': self.body,
@@ -26,9 +42,10 @@ class DeliverySlipEmailWizard(models.TransientModel):
                 'email_to': self.recipient_emails,
                 'model': 'stock.picking',
                 'res_id': self.picking_id.id,
-                'attachment_ids': [(6, 0, self.attachment_ids.ids)],
+                'attachment_ids': [(6, 0, all_attachment_ids)],
             }
 
+            # Create and send email
             mail = self.env['mail.mail'].sudo().create(mail_values)
             mail.send(auto_commit=True)
 
@@ -36,10 +53,11 @@ class DeliverySlipEmailWizard(models.TransientModel):
                 raise UserError("Email failed to send - please check mail logs")
 
             # Log in chatter
+            attachments_for_chatter = self.env['ir.attachment'].browse(all_attachment_ids)
             self.picking_id.message_post(
                 body=f"Delivery slip sent to: {self.recipient_emails}",
                 subject="Delivery Slip Sent",
-                attachments=[(att.name, att.datas) for att in self.attachment_ids]
+                attachments=[(att.name, att.datas) for att in attachments_for_chatter]
             )
 
             # ✅ Close the wizard after success
@@ -47,3 +65,4 @@ class DeliverySlipEmailWizard(models.TransientModel):
 
         except Exception as e:
             raise UserError(f"Failed to send email: {str(e)}")
+
